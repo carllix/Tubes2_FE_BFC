@@ -28,7 +28,7 @@ export default function Navbar() {
           App
         </Link>
         <Link href="/about" className={navItemClass("/about")}>
-          About Us
+          About
         </Link>
       </div>
     </nav>

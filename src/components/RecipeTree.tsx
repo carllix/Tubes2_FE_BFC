@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import NodeLabel from "./NodeLabel";
 
 const Tree = dynamic(() => import("react-d3-tree").then((mod) => mod.default), {
   ssr: false,
@@ -19,89 +20,82 @@ interface Props {
 
 export default function RecipeTree({ fullTree, delay = 500 }: Props) {
   const [displayedTree, setDisplayedTree] = useState<TreeNode | null>(null);
+  const [revealQueue, setRevealQueue] = useState<TreeNode[]>([]);
 
   useEffect(() => {
     if (!fullTree) return;
 
-    let queue: TreeNode[] = [];
-    let timer: NodeJS.Timeout[] = [];
+    // Prepare queue of all nodes in pre-order traversal
+    const queue: TreeNode[] = [];
+    const traverse = (node: TreeNode) => {
+      queue.push(node);
+      if (node.children) {
+        node.children.forEach(traverse);
+      }
+    };
+    traverse(fullTree);
 
-    const cloneAndClear = (node: TreeNode): TreeNode => {
+    const cloneTree = (node: TreeNode): TreeNode => {
       const newNode: TreeNode = { name: node.name };
       if (node.children) {
-        queue.push(...node.children.map((c) => ({ ...c })));
         newNode.children = node.children.map(() => ({ name: "..." }));
       }
       return newNode;
     };
 
-    const root = cloneAndClear(fullTree);
-    setDisplayedTree(root);
+    const clonedRoot = cloneTree(fullTree);
+    setDisplayedTree(clonedRoot);
+    setRevealQueue(queue);
+  }, [fullTree]);
 
-    let currentLevel = [root];
+  useEffect(() => {
+    if (!revealQueue.length || !displayedTree) return;
+
     let index = 0;
+    const timers: NodeJS.Timeout[] = [];
 
-    const updateNode = (node: TreeNode, realNode: TreeNode) => {
-      if (!realNode.children) return;
-      node.children = realNode.children.map((c) => cloneAndClear(c));
-    };
+    const revealNext = () => {
+      const targetName = revealQueue[index].name;
 
-    const revealStep = () => {
-      if (!queue.length || index >= queue.length) return;
-      let curr = queue[index];
-      let path = findPath(fullTree, curr.name);
-      if (!path) return;
+      const updateTree = (target: TreeNode, original: TreeNode): TreeNode => {
+        if (target.name === targetName) {
+          return cloneTreeRecursive(original);
+        }
+        if (target.children && original.children) {
+          return {
+            ...target,
+            children: target.children.map((child, i) =>
+              updateTree(child, original.children![i])
+            ),
+          };
+        }
+        return target;
+      };
 
-      let target = displayedTree;
-      for (let i = 1; i < path.length; i++) {
-        target = target?.children?.find((c) => c.name === path[i - 1])!;
-      }
+      const cloneTreeRecursive = (node: TreeNode): TreeNode => {
+        return {
+          name: node.name,
+          children: node.children?.map(cloneTreeRecursive),
+        };
+      };
 
-      const realNode = findNode(fullTree, curr.name);
-      if (target && realNode) updateNode(target, realNode);
-      setDisplayedTree({ ...displayedTree! });
+      const newTree = updateTree(displayedTree, fullTree);
+      setDisplayedTree(newTree);
 
       index++;
-      if (index < queue.length) {
-        timer.push(setTimeout(revealStep, delay));
+      if (index < revealQueue.length) {
+        timers.push(setTimeout(revealNext, delay));
       }
     };
 
-    timer.push(setTimeout(revealStep, delay));
+    const timer = setTimeout(revealNext, delay);
+    timers.push(timer);
 
-    return () => {
-      timer.forEach(clearTimeout);
-    };
-  }, [fullTree, delay]);
-
-  const findPath = (
-    node: TreeNode,
-    target: string,
-    path: string[] = []
-  ): string[] | null => {
-    if (node.name === target) return [...path, node.name];
-    if (node.children) {
-      for (let child of node.children) {
-        const found = findPath(child, target, [...path, node.name]);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
-
-  const findNode = (node: TreeNode, target: string): TreeNode | null => {
-    if (node.name === target) return node;
-    if (node.children) {
-      for (let child of node.children) {
-        const found = findNode(child, target);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
+    return () => timers.forEach(clearTimeout);
+  }, [revealQueue, displayedTree, fullTree, delay]);
 
   return (
-    <div className="`w-full h-full">
+    <div className="w-full h-full">
       {displayedTree && (
         <Tree
           data={displayedTree}
@@ -109,6 +103,10 @@ export default function RecipeTree({ fullTree, delay = 500 }: Props) {
           collapsible={false}
           zoomable
           translate={{ x: 300, y: 100 }}
+          pathFunc="elbow"
+          renderCustomNodeElement={(rd3tProps) => <NodeLabel {...rd3tProps} />}
+          nodeSize={{ x: 160, y: 100 }} // (atur jarak antar node)
+          separation={{ siblings: 1.5, nonSiblings: 2 }}
         />
       )}
     </div>

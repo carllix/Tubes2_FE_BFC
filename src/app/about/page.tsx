@@ -2,7 +2,7 @@ import ContributorCard from "@/components/ContributorCard";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen px-6 pt-32 pb-16 text-[#e0e6f5] bg-[#1c1a33] space-y-24">
+    <main className="min-h-screen px-6 pt-32 pb-16 text-[#e0e6f5] bg-[#27104d] space-y-24">
       <div className="max-w-4xl mx-auto space-y-6">
         <h2 className="text-3xl font-bold text-[#f5c542]">
           What is Alchemy 2 Finder?

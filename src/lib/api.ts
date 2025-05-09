@@ -25,22 +25,67 @@ export async function fetchRecipe(
   multiple: boolean,
   maxRecipe: number
 ) {
-  // Simulasi delay API
-  await new Promise((res) => setTimeout(res, 1000));
+  await new Promise((res) => setTimeout(res, 1000)); // Simulasi delay
 
-  // Mock data tree untuk testing
   return {
     tree: {
       name: "Brick",
       children: [
         {
-          name: "Mud",
-          children: [{ name: "Water" }, { name: "Earth" }],
+          name: "Clay + Fire",
+          children: [
+            {
+              name: "Clay",
+              children: [
+                {
+                  name: "Mud + Sand",
+                  children: [
+                    {
+                      name: "Mud",
+                      children: [
+                        { name: "Water" },
+                        { name: "Earth" },
+                      ],
+                    },
+                    {
+                      name: "Sand",
+                      children: [
+                        {
+                          name: "Stone + Air",
+                          children: [
+                            {
+                              name: "Stone",
+                              children: [
+                                {
+                                  name: "Lava + Air",
+                                  children: [
+                                    {
+                                      name: "Lava",
+                                      children: [
+                                        { name: "Earth" },
+                                        { name: "Fire" },
+                                      ],
+                                    },
+                                    { name: "Air" },
+                                  ],
+                                },
+                              ],
+                            },
+                            { name: "Air" },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            { name: "Fire" },
+          ],
         },
-        { name: "Fire" },
       ],
     },
-    time: 32,
-    nodes: 5,
+    time: 42,
+    nodes: 15,
   };
 }
