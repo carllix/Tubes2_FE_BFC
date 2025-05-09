@@ -30,7 +30,7 @@ export default function BacksoundToggle() {
         onClick={toggleAudio}
         className=" opacity-50 bg-[#927DE4] text-white px-4 py-2 rounded shadow text-shadow-lg hover:cursor-pointer hover:opacity-70"
       >
-        {isPlaying ? "🔇" : "🔊"}
+        {isPlaying ? "🔊" : "🔇"}
       </button>
       <audio ref={audioRef} src="/audio/backsound.mp3" />
     </div>
