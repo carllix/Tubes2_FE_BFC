@@ -9,11 +9,12 @@ export default function Navbar() {
   if (pathname === "/") return null;
 
   const navItemClass = (path: string) =>
-    `relative hover:text-[#f5c542] transition ${
+    `relative transition-all duration-300 hover:text-[#f5c542] ${
       pathname === path
-        ? "after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-[#f5c542]"
-        : ""
+        ? "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-[#f5c542] after:transition-all after:duration-300 after:scale-x-100 after:origin-left"
+        : "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-[#f5c542] after:transition-all after:duration-300 after:scale-x-0 after:origin-left"
     }`;
+  
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-[#1c1a33]/50 backdrop-blur-md text-[#e0e6f5] px-10 py-4 flex justify-between items-center shadow-lg border-b border-[#6b3fa0]/30">
