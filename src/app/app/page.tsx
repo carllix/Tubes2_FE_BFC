@@ -20,12 +20,12 @@ export default function HomePage() {
   const handleSubmit = async (
     element: string,
     algorithm: string,
-    mode: string,
+    multiple: boolean,
     maxRecipe: number,
     liveUpdate: boolean
   ) => {
     try {
-      const data = await fetchRecipe(element, algorithm, mode, maxRecipe);
+      const data = await fetchRecipe(element, algorithm, multiple, maxRecipe);
       console.log(data);
       setTree(data.tree);
       setInfo({ time: data.time, nodes: data.nodes });
@@ -36,22 +36,37 @@ export default function HomePage() {
   };
 
   return (
-    <main className="flex flex-col bg-[#380028] h-screen text-white">
+    <main className="flex flex-col bg-[#2b1055] text-[#e0e6f5] min-h-screen">
       <div className="flex flex-col md:flex-row gap-5">
-        <div className="w-full md:w-1/3 space-y-4 px-8 pt-20">
+        {/* Sidebar */}
+        <div className="w-full md:w-1/3 space-y-4 px-8 pt-20 pb-8 bg-[#27104d]">
           <SearchForm onSubmit={handleSubmit} />
           {info && (
-            <div className="mt-4 space-y-4">
-              <p>Info Stats: </p>
-              <div className="border border-white rounded-md p-3 text-sm text-white space-y-2">
-                <p>Waktu pencarian: {info.time} ms</p>
-                <p>Node dikunjungi: {info.nodes}</p>
+            <div className="mt-4 space-y-2">
+              <p className="text-[#f5c542] text-xs font-medium">Result :</p>
+              <div className="border border-[#6b3fa0] rounded-lg p-3 text-xs space-y-1 bg-[#2b1055]/40">
+                <p>
+                  ⏱️ Time:{" "}
+                  <span className="text-[#f5c542]">{info.time} ms</span>
+                </p>
+                <p>
+                  🧩 Nodes visited:{" "}
+                  <span className="text-[#f5c542]">{info.nodes}</span>
+                </p>
               </div>
             </div>
           )}
         </div>
-        <div className="w-full md:w-2/3 bg-[#470133] h-screen py-10">
-          {tree && <RecipeTree fullTree={tree} delay={live ? 500 : 0} />}
+
+        {/* Tree visualization */}
+        <div className="w-full md:w-2/3 bg-[#2b1055] h-screen overflow-y-auto p-6 rounded-tl-3xl">
+          {tree ? (
+            <RecipeTree fullTree={tree} delay={live ? 500 : 0} />
+          ) : (
+            <div className="text-center mt-32 text-[#a9a9c4] text-lg italic">
+              ✨ Start your search and uncover the path to magic! ✨
+            </div>
+          )}
         </div>
       </div>
     </main>

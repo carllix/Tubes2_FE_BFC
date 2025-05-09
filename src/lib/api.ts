@@ -22,7 +22,7 @@
 export async function fetchRecipe(
   element: string,
   algorithm: string,
-  mode: string,
+  multiple: boolean,
   maxRecipe: number
 ) {
   // Simulasi delay API
