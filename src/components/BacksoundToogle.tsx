@@ -19,7 +19,7 @@ export default function BacksoundToggle() {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = 0.3; // volume 30%
+      audio.volume = 0.5;
       audio.loop = true;
     }
   }, []);
