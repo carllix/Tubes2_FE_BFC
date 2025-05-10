@@ -27,65 +27,16 @@ export async function fetchRecipe(
 ) {
   await new Promise((res) => setTimeout(res, 1000)); // Simulasi delay
 
+  const res = await fetch("/test/result_tree.json");
+  if (!res.ok) {
+    throw new Error("Gagal memuat mock tree dari file");
+  }
+
+  const tree = await res.json();
+
   return {
-    tree: {
-      name: "Brick",
-      children: [
-        {
-          name: "Clay + Fire",
-          children: [
-            {
-              name: "Clay",
-              children: [
-                {
-                  name: "Mud + Sand",
-                  children: [
-                    {
-                      name: "Mud",
-                      children: [
-                        { name: "Water" },
-                        { name: "Earth" },
-                      ],
-                    },
-                    {
-                      name: "Sand",
-                      children: [
-                        {
-                          name: "Stone + Air",
-                          children: [
-                            {
-                              name: "Stone",
-                              children: [
-                                {
-                                  name: "Lava + Air",
-                                  children: [
-                                    {
-                                      name: "Lava",
-                                      children: [
-                                        { name: "Earth" },
-                                        { name: "Fire" },
-                                      ],
-                                    },
-                                    { name: "Air" },
-                                  ],
-                                },
-                              ],
-                            },
-                            { name: "Air" },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-            { name: "Fire" },
-          ],
-        },
-      ],
-    },
-    time: 42,
-    nodes: 15,
+    tree,
+    time: 100,
+    nodes: 100,
   };
 }

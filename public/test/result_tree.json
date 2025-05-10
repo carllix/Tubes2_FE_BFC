@@ -1,0 +1,251 @@
+[
+  {
+    "name": "brick",
+    "children": [
+      {
+        "name": "mud + sun",
+        "children": [
+          {
+            "name": "mud",
+            "children": [
+              {
+                "name": "water + earth",
+                "children": [
+                  {
+                    "name": "water"
+                  },
+                  {
+                    "name": "earth"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "sun",
+            "children": [
+              {
+                "name": "sky + fire",
+                "children": [
+                  {
+                    "name": "sky",
+                    "children": [
+                      {
+                        "name": "air + cloud",
+                        "children": [
+                          {
+                            "name": "air"
+                          },
+                          {
+                            "name": "mist",
+                            "children": [
+                              {
+                                "name": "air + water",
+                                "children": [
+                                  {
+                                    "name": "air"
+                                  },
+                                  {
+                                    "name": "water"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "fire"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "brick",
+    "children": [
+      {
+        "name": "mud + fire",
+        "children": [
+          {
+            "name": "mud",
+            "children": [
+              {
+                "name": "water + earth",
+                "children": [
+                  {
+                    "name": "water"
+                  },
+                  {
+                    "name": "earth"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "fire"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "brick",
+    "children": [
+      {
+        "name": "clay + fire",
+        "children": [
+          {
+            "name": "mud",
+            "children": [
+              {
+                "name": "water + earth",
+                "children": [
+                  {
+                    "name": "water"
+                  },
+                  {
+                    "name": "earth"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "fire"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "brick",
+    "children": [
+      {
+        "name": "clay + sun",
+        "children": [
+          {
+            "name": "mud",
+            "children": [
+              {
+                "name": "water + earth",
+                "children": [
+                  {
+                    "name": "water"
+                  },
+                  {
+                    "name": "earth"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "sun",
+            "children": [
+              {
+                "name": "sky + fire",
+                "children": [
+                  {
+                    "name": "sky",
+                    "children": [
+                      {
+                        "name": "air + cloud",
+                        "children": [
+                          {
+                            "name": "air"
+                          },
+                          {
+                            "name": "mist",
+                            "children": [
+                              {
+                                "name": "air + water",
+                                "children": [
+                                  {
+                                    "name": "air"
+                                  },
+                                  {
+                                    "name": "water"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "fire"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "brick",
+    "children": [
+      {
+        "name": "clay + stone",
+        "children": [
+          {
+            "name": "mud",
+            "children": [
+              {
+                "name": "water + earth",
+                "children": [
+                  {
+                    "name": "water"
+                  },
+                  {
+                    "name": "earth"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "stone",
+            "children": [
+              {
+                "name": "earth + pressure",
+                "children": [
+                  {
+                    "name": "earth"
+                  },
+                  {
+                    "name": "pressure",
+                    "children": [
+                      {
+                        "name": "air + air",
+                        "children": [
+                          {
+                            "name": "air"
+                          },
+                          {
+                            "name": "air"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

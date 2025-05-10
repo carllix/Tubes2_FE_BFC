@@ -4,14 +4,16 @@ import { useState } from "react";
 import SearchForm from "@/components/SearchForm";
 import RecipeTree from "@/components/RecipeTree";
 import { fetchRecipe } from "@/lib/api";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 interface TreeNode {
   name: string;
   children?: TreeNode[];
 }
 
-export default function HomePage() {
-  const [tree, setTree] = useState<TreeNode | null>(null);
+export default function AppPage() {
+  const [trees, setTrees] = useState<TreeNode[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const [info, setInfo] = useState<{ time: number; nodes: number } | null>(
     null
   );
@@ -26,10 +28,10 @@ export default function HomePage() {
   ) => {
     try {
       const data = await fetchRecipe(element, algorithm, multiple, maxRecipe);
-      console.log(data);
-      setTree(data.tree);
+      setTrees(Array.isArray(data.tree) ? data.tree : [data.tree]);
       setInfo({ time: data.time, nodes: data.nodes });
       setLive(liveUpdate);
+      setCurrentPage(0);
     } catch (err) {
       alert("Gagal mengambil recipe. Coba lagi.");
     }
@@ -57,6 +59,30 @@ export default function HomePage() {
                     <span className="text-[#f5c542]">{info.nodes}</span>
                   </p>
                 </div>
+
+                {trees.length > 1 && (
+                  <div className="flex justify-center items-center gap-4 pt-2">
+                    <button
+                      onClick={() => setCurrentPage((p) => Math.max(p - 1, 0))}
+                      disabled={currentPage === 0}
+                      className="px-2 py-1 bg-[#f5c542] text-black text-sm rounded disabled:opacity-30"
+                    >
+                      <HiChevronLeft size={16} />
+                    </button>
+                    <span className="text-sm text-[#e0e6f5]">
+                      Tree {currentPage + 1} of {trees.length}
+                    </span>
+                    <button
+                      onClick={() =>
+                        setCurrentPage((p) => Math.min(p + 1, trees.length - 1))
+                      }
+                      disabled={currentPage === trees.length - 1}
+                      className="px-2 py-1 bg-[#f5c542] text-black text-sm rounded disabled:opacity-30"
+                    >
+                      <HiChevronRight size={16} />
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -64,8 +90,8 @@ export default function HomePage() {
 
         {/* Tree visualization */}
         <div className="w-full md:w-2/3 bg-[#2b1055] h-screen overflow-y-auto p-6 rounded-tl-3xl">
-          {tree ? (
-            <RecipeTree fullTree={tree} delay={live ? 500 : 0} />
+          {trees.length > 0 ? (
+            <RecipeTree fullTree={trees[currentPage]} delay={live ? 500 : 0} />
           ) : (
             <div className="text-center mt-32 text-[#a9a9c4] text-lg italic">
               ✨ Start your search and uncover the path to magic! ✨
