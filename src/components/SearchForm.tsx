@@ -54,7 +54,7 @@ export default function SearchForm({ onSubmit }: Props) {
               key={alg}
               type="button"
               onClick={() => setAlgorithm(alg)}
-              className={`hover:cursor-pointer flex-1 px-4 py-2 text-xs font-medium transition duration-200 ease-in-out
+              className={`hover:cursor-pointer flex-1 px-4 py-2 md:text-[10px] lg:text-xs font-medium transition duration-200 ease-in-out
             ${
               algorithm === alg
                 ? "bg-[#6b3fa0] text-white"
