@@ -41,7 +41,7 @@ export default function AppPage() {
     <main className="flex flex-col bg-[#2b1055] text-[#e0e6f5] min-h-screen">
       <div className="flex flex-col md:flex-row">
         {/* Sidebar */}
-        <div className="w-full md:w-1/3 space-y-4 px-8 pt-20 pb-8 relative overflow-hidden bg-gradient-to-b from-[#2b1055] via-[#27104d] to-[#1a093d]">
+        <div className="w-full md:w-1/3 space-y-4 px-8 pt-24 md:pt-[85px] pb-8 relative overflow-hidden bg-gradient-to-b from-[#2b1055] via-[#27104d] to-[#1a093d]">
           <div className="absolute inset-0 bg-[url('/image/sidebar.png')] bg-no-repeat bg-bottom bg-cover opacity-30 pointer-events-none z-0" />
 
           <div className="relative z-10">
@@ -89,7 +89,7 @@ export default function AppPage() {
         </div>
 
         {/* Tree visualization */}
-        <div className="w-full md:w-2/3 bg-[#2b1055] h-screen overflow-y-auto rounded-tl-3xl">
+        <div className="px-2 sm:px-0 w-full md:w-2/3 bg-[#2b1055] h-screen overflow-y-auto rounded-tl-3xl">
           {trees.length > 0 ? (
             <RecipeTree fullTree={trees[currentPage]} delay={live ? 500 : 0} />
           ) : (
