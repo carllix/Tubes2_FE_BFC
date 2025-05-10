@@ -5,7 +5,7 @@ export default function NotFound() {
     <div
       className="min-h-screen bg-center bg-cover bg-[#27104d] flex flex-col items-center justify-center text-[#f5c542] px-6"
       style={{
-        backgroundImage: "url('/image/notfound.png')",
+        backgroundImage: "url('/image/notfound.jpg')",
       }}
     >
       <h1 className="text-xl sm:text-4xl font-bold mb-4">
