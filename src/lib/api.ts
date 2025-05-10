@@ -27,7 +27,7 @@ export async function fetchRecipe(
 ) {
   await new Promise((res) => setTimeout(res, 1000)); // Simulasi delay
 
-  const res = await fetch("/test/result_tree.json");
+  const res = await fetch("/test/result_tree(1).json");
   if (!res.ok) {
     throw new Error("Gagal memuat mock tree dari file");
   }

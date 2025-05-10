@@ -65,7 +65,7 @@ export default function AppPage() {
                     <button
                       onClick={() => setCurrentPage((p) => Math.max(p - 1, 0))}
                       disabled={currentPage === 0}
-                      className="px-2 py-1 bg-[#f5c542] text-black text-sm rounded disabled:opacity-30"
+                      className="px-2 py-1 bg-[#f5c542] text-black text-sm rounded disabled:opacity-30 hover:cursor-pointer"
                     >
                       <HiChevronLeft size={16} />
                     </button>
@@ -77,7 +77,7 @@ export default function AppPage() {
                         setCurrentPage((p) => Math.min(p + 1, trees.length - 1))
                       }
                       disabled={currentPage === trees.length - 1}
-                      className="px-2 py-1 bg-[#f5c542] text-black text-sm rounded disabled:opacity-30"
+                      className="px-2 py-1 bg-[#f5c542] text-black text-sm rounded disabled:opacity-30 hover:cursor-pointer"
                     >
                       <HiChevronRight size={16} />
                     </button>
