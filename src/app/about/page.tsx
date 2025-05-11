@@ -7,11 +7,14 @@ export default function AboutPage() {
         <h2 className="text-3xl font-bold text-[#f5c542]">
           What is Alchemy 2 Finder?
         </h2>
-        <p className="text-lg text-[#e0e6f5]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a nisl
-          eget libero gravida convallis non in nunc. Aenean nec aliquam lorem.
-          Phasellus porttitor fermentum ante, nec tincidunt tortor ornare vel.
-          Donec vulputate pulvinar dui, sed convallis dolor rutrum sed.
+        <p className="text-lg text-[#e0e6f5] text-justify">
+          <strong>Alchemy 2 Finder</strong> is a web application that helps
+          players of <em>Little Alchemy 2</em> discover the correct element
+          combinations using smart search algorithms like BFS, DFS, and
+          Bidirectional Search. Built with Next.js and Golang, this app presents
+          search results in a visual tree format. All data is sourced from the
+          official fandom site, and the system is containerized with Docker for
+          smooth deployment using Vercel and Railway.
         </p>
       </div>
 
@@ -24,22 +27,22 @@ export default function AboutPage() {
             name="Fawwaz"
             nim="13523065"
             github="https://github.com/WwzFwz"
-            quote="Lorem itu lorem."
-            image="/image/king.jpg"
+            quote="Kata mamah webnya bagus"
+            image="/image/Fawwaz.jpg"
           />
           <ContributorCard
             name="Carlo"
             nim="13523091"
             github="https://github.com/carllix"
-            quote="Lorem itu lorem."
-            image="/image/king.jpg"
+            quote="Semua yang kau lakukan is magic"
+            image="/image/Carlo.jpg"
           />
           <ContributorCard
             name="Barru"
             nim="13523101"
             github="https://github.com/barruadi"
-            quote="Lorem itu lorem."
-            image="/image/king.jpg"
+            quote="Motivasiku membeli kulkas"
+            image="/image/Barru.jpg"
           />
         </div>
       </div>
