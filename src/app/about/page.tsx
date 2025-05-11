@@ -1,5 +1,29 @@
 import ContributorCard from "@/components/ContributorCard";
 
+const contributors = [
+  {
+    name: "Fawwaz",
+    nim: "13523065",
+    github: "https://github.com/WwzFwz",
+    quote: "Kata mamah webnya bagus",
+    image: "/image/Fawwaz.jpg",
+  },
+  {
+    name: "Carlo",
+    nim: "13523091",
+    github: "https://github.com/carllix",
+    quote: "Semua yang kau lakukan is magic",
+    image: "/image/Carlo.jpg",
+  },
+  {
+    name: "Barru",
+    nim: "13523101",
+    github: "https://github.com/barruadi",
+    quote: "Motivasiku membeli kulkas",
+    image: "/image/Barru.jpg",
+  },
+];
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen px-6 pt-32 pb-16 text-[#e0e6f5] bg-[#27104d] space-y-24">
@@ -23,27 +47,16 @@ export default function AboutPage() {
           Contributors
         </h2>
         <div className="flex flex-col md:flex-row gap-6 items-center justify-center">
-          <ContributorCard
-            name="Fawwaz"
-            nim="13523065"
-            github="https://github.com/WwzFwz"
-            quote="Kata mamah webnya bagus"
-            image="/image/Fawwaz.jpg"
-          />
-          <ContributorCard
-            name="Carlo"
-            nim="13523091"
-            github="https://github.com/carllix"
-            quote="Semua yang kau lakukan is magic"
-            image="/image/Carlo.jpg"
-          />
-          <ContributorCard
-            name="Barru"
-            nim="13523101"
-            github="https://github.com/barruadi"
-            quote="Motivasiku membeli kulkas"
-            image="/image/Barru.jpg"
-          />
+          {contributors.map((contributor) => (
+            <ContributorCard
+              key={contributor.nim}
+              name={contributor.name}
+              nim={contributor.nim}
+              github={contributor.github}
+              quote={contributor.quote}
+              image={contributor.image}
+            />
+          ))}
         </div>
       </div>
     </main>
