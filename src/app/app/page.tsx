@@ -11,12 +11,16 @@ interface TreeNode {
   children?: TreeNode[];
 }
 
+const BASE_ELEMENTS = ["air", "earth", "fire", "water"];
+
 export default function AppPage() {
   const [trees, setTrees] = useState<TreeNode[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [info, setInfo] = useState<{ time: number; nodes: number } | null>(
-    null
-  );
+  const [info, setInfo] = useState<{
+    time: number;
+    nodes: number;
+    base?: boolean;
+  } | null>(null);
   const [live, setLive] = useState(true);
 
   const handleSubmit = async (
@@ -27,7 +31,33 @@ export default function AppPage() {
     liveUpdate: boolean
   ) => {
     try {
+      const lowerElement = element.toLowerCase().trim();
+
+      if (BASE_ELEMENTS.includes(lowerElement)) {
+        setTrees([]);
+        setInfo({
+          time: 0,
+          nodes: 0,
+          base: true,
+        });
+        setLive(false);
+        setCurrentPage(0);
+        return;
+      }
+
       const data = await fetchRecipe(element, algorithm, multiple, maxRecipe);
+
+      if (!data.tree || (Array.isArray(data.tree) && data.tree.length === 0)) {
+        setTrees([]);
+        setInfo({
+          time: data.time || 0,
+          nodes: data.nodes || 0,
+          base: false,
+        });
+        setLive(false);
+        setCurrentPage(0);
+        return;
+      }
 
       const treeArray = Array.isArray(data.tree) ? data.tree : [data.tree];
       const limitedTrees = multiple ? treeArray : [treeArray[0]];
@@ -54,14 +84,26 @@ export default function AppPage() {
               <div className="mt-4 space-y-2">
                 <p className="text-[#f5c542] text-xs font-medium">Result :</p>
                 <div className="border border-[#6b3fa0] rounded-lg p-3 text-xs space-y-1 bg-[#2b1055]/40">
-                  <p>
-                    ⏱️ Time:{" "}
-                    <span className="text-[#f5c542]">{info.time} ms</span>
-                  </p>
-                  <p>
-                    🧩 Nodes visited:{" "}
-                    <span className="text-[#f5c542]">{info.nodes}</span>
-                  </p>
+                  {info.base ? (
+                    <p className="italic text-[#a9a9c4]">
+                      This is a{" "}
+                      <span className="text-[#f5c542] font-medium">
+                        base element
+                      </span>{" "}
+                      and cannot be formed from other elements.
+                    </p>
+                  ) : (
+                    <>
+                      <p>
+                        ⏱️ Time:{" "}
+                        <span className="text-[#f5c542]">{info.time} ms</span>
+                      </p>
+                      <p>
+                        🧩 Nodes visited:{" "}
+                        <span className="text-[#f5c542]">{info.nodes}</span>
+                      </p>
+                    </>
+                  )}
                 </div>
 
                 {trees.length > 1 && (
@@ -96,6 +138,10 @@ export default function AppPage() {
         <div className="px-2 sm:px-0 w-full md:w-2/3 bg-[#2b1055] h-screen overflow-y-auto rounded-tl-3xl">
           {trees.length > 0 ? (
             <RecipeTree fullTree={trees[currentPage]} delay={live ? 500 : 0} />
+          ) : info?.base ? null : info ? (
+            <div className="text-center mt-32 text-[#a9a9c4] text-lg italic">
+              ❌ No recipe found for the given element.
+            </div>
           ) : (
             <div className="text-center mt-32 text-[#a9a9c4] text-lg italic">
               ✨ Start your search and uncover the path to magic! ✨
