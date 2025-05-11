@@ -102,7 +102,8 @@ export default function RecipeTree({ fullTree, delay = 500 }: Props) {
           orientation="vertical"
           collapsible={false}
           zoomable
-          pathFunc="elbow"
+          pathFunc="diagonal"
+          pathClassFunc={() => "link"}
           renderCustomNodeElement={(rd3tProps) => <NodeLabel {...rd3tProps} />}
           nodeSize={{ x: 200, y: 200 }}
           translate={{ x: 400, y: 100 }}

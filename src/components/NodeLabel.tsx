@@ -31,14 +31,24 @@ export default function NodeLabel({ nodeDatum }: CustomNodeProps) {
   const leftImage = elementImages[left.toLowerCase()];
   const rightImage = right ? elementImages[right.toLowerCase()] : null;
 
+  const baseGradientMap: Record<string, string> = {
+    fire: "from-red-400 to-red-800",
+    water: "from-blue-400 to-blue-800",
+    air: "from-slate-200 to-slate-400",
+    earth: "from-green-400 to-green-800",
+  };
+
+  const baseElement = left.toLowerCase();
+  const gradient = baseGradientMap[baseElement] || "from-purple-300 to-purple-900";
+
   return (
-    <foreignObject width={140} height={160} x={-70} y={-60}>
+    <foreignObject width={145} height={140} x={-70} y={-60}>
       <div className="flex flex-col items-center">
         <div
-          className="w-24 h-24 rounded-full relative overflow-hidden 
-                      bg-gradient-to-b from-purple-300 to-purple-900
+          className={`w-24 h-24 rounded-full relative overflow-hidden
+                      bg-gradient-to-b ${gradient}
                       border-2 border-purple-200
-                      shadow-[0_0_15px_8px_rgba(147,51,234,0.3)]"
+                      shadow-[0_0_15px_8px_rgba(147,51,234,0.3)]`}
         >
           <div className="absolute inset-0 opacity-40 bg-gradient-to-t from-transparent to-white rounded-full"></div>
           <div className="absolute top-0 left-1/4 w-1/2 h-1/4 bg-white opacity-30 rounded-full transform -translate-y-1/2"></div>
