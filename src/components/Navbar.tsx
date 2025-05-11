@@ -64,6 +64,9 @@ export default function Navbar() {
           <Link href="/app" className={navItemClass("/app")}>
             App
           </Link>
+          <Link href="/elements" className={navItemClass("/elements")}>
+            Elements
+          </Link>
           <Link href="/about" className={navItemClass("/about")}>
             About
           </Link>
@@ -105,6 +108,13 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
           >
             App
+          </Link>
+          <Link
+            href="/elements"
+            className={mobileNavItemClass("/elements")}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Elements
           </Link>
           <Link
             href="/about"
