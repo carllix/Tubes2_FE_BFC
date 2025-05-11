@@ -42,7 +42,7 @@ export default function NodeLabel({ nodeDatum }: CustomNodeProps) {
   const gradient = baseGradientMap[baseElement] || "from-purple-300 to-purple-900";
 
   return (
-    <foreignObject width={145} height={140} x={-70} y={-60}>
+    <foreignObject width={300} height={200} x={-150} y={-40}>
       <div className="flex flex-col items-center">
         <div
           className={`w-24 h-24 rounded-full relative overflow-hidden
@@ -99,11 +99,14 @@ export default function NodeLabel({ nodeDatum }: CustomNodeProps) {
         <div className="mt-3 text-center relative">
           <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-purple-400 to-transparent -top-1"></div>
           <span
-            className="text-base font-medium text-white px-3 py-1 rounded-lg
-                       bg-gradient-to-r from-purple-800 via-purple-600 to-purple-800
-                       border border-purple-300 border-opacity-40"
+            className="text-xl font-semibold text-white px-4 py-2 rounded-lg
+            bg-gradient-to-r from-purple-800 via-purple-600 to-purple-800
+            border border-purple-300 border-opacity-40 shadow-md"
           >
-            {nodeDatum.name}
+            {nodeDatum.name
+              .split(" ")
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(" ")}
           </span>
           <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-purple-400 to-transparent -bottom-1"></div>
         </div>
