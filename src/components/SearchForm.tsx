@@ -101,6 +101,10 @@ export default function SearchForm({ onSubmit }: Props) {
                 ...base,
                 color: "white",
               }),
+              input: (base) => ({
+                ...base,
+                color: "white",
+              }),
             }}
           />
         )}
