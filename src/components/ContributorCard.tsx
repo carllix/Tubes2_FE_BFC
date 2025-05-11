@@ -17,14 +17,11 @@ export default function ContributorCard({
   const githubUsername = github.replace("https://github.com/", "");
 
   return (
-    <div className="bg-[#1c1a33]/80 border border-[#6b3fa0] text-white rounded-xl shadow-md p-4 flex flex-col items-center space-y-3 w-full md:w-1/3">
-      <Image
-        src={image}
-        alt={name}
-        width={120}
-        height={120}
-        className="rounded-full object-cover"
-      />
+    <div className="bg-[#1c1a33]/80 border border-[#6b3fa0] text-white rounded-xl shadow-md p-10 flex flex-col items-center space-y-3 w-full md:w-1/3">
+      <div className="w-[120px] h-[120px] relative rounded-full overflow-hidden">
+        <Image src={image} alt={name} fill className="object-cover" />
+      </div>
+
       <h3 className="text-lg font-semibold text-[#f5c542]">{name}</h3>
       <p className="text-sm text-[#dbdbed]">{nim}</p>
 
