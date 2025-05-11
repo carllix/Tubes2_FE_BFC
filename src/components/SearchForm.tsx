@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Select from "react-select";
 import ToggleSwitch from "./ToogleSwitch";
+import Image from "next/image";
 
 interface Props {
   onSubmit: (
@@ -13,34 +15,95 @@ interface Props {
   ) => void;
 }
 
+type ElementOption = {
+  value: string;
+  label: string;
+  image: string;
+};
+
 export default function SearchForm({ onSubmit }: Props) {
-  const [element, setElement] = useState("");
+  const [element, setElement] = useState<ElementOption | null>(null);
+  const [elementOptions, setElementOptions] = useState<ElementOption[]>([]);
   const [algorithm, setAlgorithm] = useState("bfs");
   const [multiple, setmultiple] = useState(false);
   const [maxRecipe, setMaxRecipe] = useState(1);
   const [liveUpdate, setLiveUpdate] = useState(false);
 
+  useEffect(() => {
+    fetch("/data/elements.json")
+      .then((res) => res.json())
+      .then((data) => {
+        const options = Object.entries(data).map(([name, url]) => {
+          if (typeof url !== "string") {
+            throw new Error(`Invalid URL: ${url}`);
+          }
+          return {
+            value: name,
+            label: name,
+            image: url,
+          };
+        });
+        setElementOptions(options);
+      });
+  }, []);
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(element, algorithm, multiple, maxRecipe, liveUpdate);
+        onSubmit(
+          element?.value || "",
+          algorithm,
+          multiple,
+          maxRecipe,
+          liveUpdate
+        );
       }}
       className="space-y-6 text-xs"
     >
-      {/* Target Element Input */}
+      {/* Target Element Dropdown */}
       <div>
         <label className="block mb-2 text-[#f5c542] font-medium">
           Target Element:
         </label>
-        <input
-          type="text"
-          placeholder="e.g. Brick, Water, Metal"
-          value={element}
-          onChange={(e) => setElement(e.target.value)}
-          className="border border-[#6b3fa0] rounded-md px-3 py-2 w-full bg-transparent text-white placeholder-[#a9a9c4] shadow-sm"
-          required
-        />
+        {elementOptions.length > 0 && (
+          <Select
+            options={elementOptions}
+            value={element}
+            onChange={(selected) => setElement(selected)}
+            getOptionLabel={(e) => e.label}
+            formatOptionLabel={(e) => (
+              <div className="flex items-center gap-2">
+                <Image src={e.image} alt={e.label} width={24} height={24} />
+                <span className="capitalize">{e.label}</span>
+              </div>
+            )}
+            className="text-black"
+            styles={{
+              control: (base) => ({
+                ...base,
+                backgroundColor: "#1c1a33",
+                borderColor: "#6b3fa0",
+                color: "white",
+                cursor: "pointer",
+              }),
+              menu: (base) => ({
+                ...base,
+                backgroundColor: "#1c1a33",
+              }),
+              option: (base, state) => ({
+                ...base,
+                backgroundColor: state.isFocused ? "#6b3fa0" : "#1c1a33",
+                color: "white",
+                cursor: "pointer",
+              }),
+              singleValue: (base) => ({
+                ...base,
+                color: "white",
+              }),
+            }}
+          />
+        )}
       </div>
 
       {/* Algorithm Selector */}
@@ -106,13 +169,13 @@ export default function SearchForm({ onSubmit }: Props) {
       </div>
 
       {/* Live Update Toggle */}
-      <div>
+      {/* <div>
         <ToggleSwitch
           label="Live Update:"
           checked={liveUpdate}
           onChange={() => setLiveUpdate(!liveUpdate)}
         />
-      </div>
+      </div> */}
 
       {/* Submit Button */}
       <button
