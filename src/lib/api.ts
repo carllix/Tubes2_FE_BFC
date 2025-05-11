@@ -37,7 +37,7 @@ export async function fetchRecipe(
 ) {
   await new Promise((res) => setTimeout(res, 1000)); // Simulasi delay
   const baseUrl =
-    process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
+    process.env.NEXT_PUBLIC_BACKEND_URL;
     const res = await fetch(`${baseUrl}/api/data`, {
       method: "POST",
       headers: {
