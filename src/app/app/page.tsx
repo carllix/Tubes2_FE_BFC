@@ -28,7 +28,11 @@ export default function AppPage() {
   ) => {
     try {
       const data = await fetchRecipe(element, algorithm, multiple, maxRecipe);
-      setTrees(Array.isArray(data.tree) ? data.tree : [data.tree]);
+
+      const treeArray = Array.isArray(data.tree) ? data.tree : [data.tree];
+      const limitedTrees = multiple ? treeArray : [treeArray[0]];
+
+      setTrees(limitedTrees);
       setInfo({ time: data.time, nodes: data.nodes });
       setLive(liveUpdate);
       setCurrentPage(0);
