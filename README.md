@@ -167,7 +167,7 @@ cd Tubes2_BE_BFC
 docker compose up --build
 ```
 
-4. Open the application in your browser: [http://localhost:3000](http://localhost:3000)
+> Open the application in your browser: [http://localhost:3000](http://localhost:3000)
 
 ## Preview
 
