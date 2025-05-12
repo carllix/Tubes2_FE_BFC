@@ -113,6 +113,8 @@ cd Tubes2_BE_BFC
 8. Start the Golang backend server:
 
 ```bash
+go mod download
+go run ./src
 
 ```
 
@@ -139,11 +141,10 @@ cd Tubes2_FE_BFC
 ```bash
 echo 'NEXT_PUBLIC_BACKEND_URL=http://localhost:8080' >> .env.production
 ```
-4. Build and Run Docker Container
+4. Build and run the Docker container
 
 ```bash
-docker build -t tubes2-fe .
-docker run -p 3000:3000 tubes2-fe
+docker compose up --build
 ```
 
 **Backend:** 
@@ -160,18 +161,12 @@ git clone https://github.com/barruadi/Tubes2_BE_BFC
 cd Tubes2_BE_BFC
 ```
 
-7. Build and run the Docker container manually:
+7. Build and run the Docker container
 
 ```bash
-
+docker compose up --build
 ```
 
-Or, you can use the provided run.bat script
-
-```bash
-chmod +x ./run.bat
-./run.bat
-```
 8. Open the application in your browser: [http://localhost:3000](http://localhost:3000)
 
 ## Preview
