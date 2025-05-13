@@ -18,7 +18,7 @@
 
 ## Description
 
-This project implements **Breadth-First Search (BFS)**, **Depth-First Search (DFS)**, and **Bidirectional Search** algorithms to assist players of **Little Alchemy 2** in finding optimal combinations of base elements to create new elements. The application provides a visually engaging, animated recipe tree and supports interactive search options including live updates.
+This project implements Breadth-First Search (BFS), Depth-First Search (DFS), and Bidirectional Search algorithms to assist players of Little Alchemy 2 in finding optimal combinations of base elements to create new elements. The application presents the results as a visually engaging, animated recipe tree to enhance understanding of each algorithm’s pathfinding process.
 
 The system is built with a **Next.js (React)** frontend and a **Golang** backend, and is fully containerized with **Docker**.
 
@@ -98,19 +98,19 @@ npm run dev
 
 **Backend:**
 
-6. Clone the Backend Repository:
+1. Clone the Backend Repository:
 
 ```bash
 git clone https://github.com/barruadi/Tubes2_BE_BFC
 ```
 
-7. Navigate to the backend directory:
+2. Navigate to the backend directory:
 
 ```bash
 cd Tubes2_BE_BFC
 ```
 
-8. Start the Golang backend server:
+3. Start the Golang backend server:
 
 ```bash
 go mod download
@@ -118,7 +118,7 @@ go run ./src
 
 ```
 
-9. Open the application in your browser: [http://localhost:3000](http://localhost:3000)
+> Open the application in your browser: [http://localhost:3000](http://localhost:3000)
 
 ### Run With Docker
 
@@ -149,25 +149,25 @@ docker compose up --build
 
 **Backend:** 
 
-5. Clone the Backend Repository:
+1. Clone the Backend Repository:
 
 ```bash
 git clone https://github.com/barruadi/Tubes2_BE_BFC
 ```
 
-6. Navigate to the backend directory:
+2. Navigate to the backend directory:
 
 ```bash
 cd Tubes2_BE_BFC
 ```
 
-7. Build and run the Docker container
+3. Build and run the Docker container
 
 ```bash
 docker compose up --build
 ```
 
-8. Open the application in your browser: [http://localhost:3000](http://localhost:3000)
+> Open the application in your browser: [http://localhost:3000](http://localhost:3000)
 
 ## Preview
 
@@ -179,7 +179,7 @@ docker compose up --build
 
 ![App](doc/img/app.png)
 
-### Elements
+### Elements Page
 
 ![Elements](doc/img/elements.png)
 

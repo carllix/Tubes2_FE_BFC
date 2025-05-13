@@ -15,6 +15,7 @@ const BASE_ELEMENTS = ["air", "earth", "fire", "water"];
 
 export default function AppPage() {
   const [trees, setTrees] = useState<TreeNode[]>([]);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [info, setInfo] = useState<{
     time: number;
@@ -30,16 +31,13 @@ export default function AppPage() {
     maxRecipe: number,
     liveUpdate: boolean
   ) => {
+    setLoading(true); 
     try {
       const lowerElement = element.toLowerCase().trim();
 
       if (BASE_ELEMENTS.includes(lowerElement)) {
         setTrees([]);
-        setInfo({
-          time: 0,
-          nodes: 0,
-          base: true,
-        });
+        setInfo({ time: 0, nodes: 0, base: true });
         setLive(false);
         setCurrentPage(0);
         return;
@@ -49,11 +47,7 @@ export default function AppPage() {
 
       if (!data.tree || (Array.isArray(data.tree) && data.tree.length === 0)) {
         setTrees([]);
-        setInfo({
-          time: data.time || 0,
-          nodes: data.nodes || 0,
-          base: false,
-        });
+        setInfo({ time: data.time || 0, nodes: data.nodes || 0, base: false });
         setLive(false);
         setCurrentPage(0);
         return;
@@ -68,8 +62,11 @@ export default function AppPage() {
       setCurrentPage(0);
     } catch (err) {
       alert("Gagal mengambil recipe. Coba lagi.");
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   return (
     <main className="flex flex-col bg-[#2b1055] text-[#e0e6f5] min-h-screen">
@@ -79,7 +76,7 @@ export default function AppPage() {
           <div className="absolute inset-0 bg-[url('/image/sidebar.png')] bg-no-repeat bg-bottom bg-cover opacity-30 pointer-events-none z-0" />
 
           <div className="relative z-10">
-            <SearchForm onSubmit={handleSubmit} />
+            <SearchForm onSubmit={handleSubmit} loading={loading} />
             {info && (
               <div className="mt-4 space-y-2">
                 <p className="text-[#f5c542] text-xs font-medium">Result :</p>
