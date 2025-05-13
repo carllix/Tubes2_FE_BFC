@@ -10,11 +10,12 @@ interface NodeDatum {
 
 interface CustomNodeProps {
   nodeDatum: NodeDatum;
+  onClick?: (node: NodeDatum) => void;
 }
 
 type ElementImageMap = Record<string, string>;
 
-export default function NodeLabel({ nodeDatum }: CustomNodeProps) {
+export default function NodeLabel({ nodeDatum, onClick }: CustomNodeProps) {
   const [elementImages, setElementImages] = useState<ElementImageMap>({});
 
   useEffect(() => {
@@ -39,16 +40,18 @@ export default function NodeLabel({ nodeDatum }: CustomNodeProps) {
   };
 
   const baseElement = left.toLowerCase();
-  const gradient = baseGradientMap[baseElement] || "from-purple-300 to-purple-900";
+  const gradient =
+    baseGradientMap[baseElement] || "from-purple-300 to-purple-900";
 
   return (
     <foreignObject width={300} height={200} x={-150} y={-40}>
       <div className="flex flex-col items-center">
         <div
+          onClick={() => onClick?.(nodeDatum)}
           className={`w-24 h-24 rounded-full relative overflow-hidden
                       bg-gradient-to-b ${gradient}
                       border-2 border-purple-200
-                      shadow-[0_0_15px_8px_rgba(147,51,234,0.3)]`}
+                      shadow-[0_0_15px_8px_rgba(147,51,234,0.3)] hover:cursor-pointer`}
         >
           <div className="absolute inset-0 opacity-40 bg-gradient-to-t from-transparent to-white rounded-full"></div>
           <div className="absolute top-0 left-1/4 w-1/2 h-1/4 bg-white opacity-30 rounded-full transform -translate-y-1/2"></div>

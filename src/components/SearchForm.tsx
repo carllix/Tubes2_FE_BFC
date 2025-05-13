@@ -16,7 +16,6 @@ interface Props {
   loading: boolean;
 }
 
-
 type ElementOption = {
   value: string;
   label: string;
@@ -30,7 +29,7 @@ export default function SearchForm({ onSubmit, loading }: Props) {
   const [multiple, setmultiple] = useState(false);
   const [maxRecipe, setMaxRecipe] = useState(1);
   const [liveUpdate, setLiveUpdate] = useState(false);
-  
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/data/elements.json")
@@ -54,17 +53,17 @@ export default function SearchForm({ onSubmit, loading }: Props) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(
-          element?.value || "",
-          algorithm,
-          multiple,
-          maxRecipe,
-          liveUpdate
-        );
+
+        if (!element) {
+          setError("Please select a target element.");
+          return;
+        }
+
+        setError(null);
+        onSubmit(element.value, algorithm, multiple, maxRecipe, liveUpdate);
       }}
       className="space-y-6 text-xs"
     >
-      {/* Target Element Dropdown */}
       <div>
         <label className="block mb-2 text-[#f5c542] font-medium">
           Target Element:
@@ -73,7 +72,10 @@ export default function SearchForm({ onSubmit, loading }: Props) {
           <Select
             options={elementOptions}
             value={element}
-            onChange={(selected) => setElement(selected)}
+            onChange={(selected) => {
+              setElement(selected);
+              if (error) setError(null);
+            }}
             getOptionLabel={(e) => e.label}
             formatOptionLabel={(e) => (
               <div className="flex items-center gap-2">
@@ -86,7 +88,7 @@ export default function SearchForm({ onSubmit, loading }: Props) {
               control: (base) => ({
                 ...base,
                 backgroundColor: "#1c1a33",
-                borderColor: "#6b3fa0",
+                borderColor: error ? "red" : "#6b3fa0",
                 color: "white",
                 cursor: "pointer",
               }),
@@ -111,9 +113,11 @@ export default function SearchForm({ onSubmit, loading }: Props) {
             }}
           />
         )}
+        {error && (
+          <p className="text-red-400 mt-1 text-[10px] font-medium">{error}</p>
+        )}
       </div>
 
-      {/* Algorithm Selector */}
       <div className="space-y-1">
         <label className="block mb-2 text-[#f5c542] font-medium">
           Algorithm:
@@ -125,14 +129,14 @@ export default function SearchForm({ onSubmit, loading }: Props) {
               type="button"
               onClick={() => setAlgorithm(alg)}
               className={`hover:cursor-pointer flex-1 px-4 py-2 md:text-[10px] lg:text-xs font-medium transition duration-200 ease-in-out
-            ${
-              algorithm === alg
-                ? "bg-[#6b3fa0] text-white"
-                : "bg-[#e0e6f5] text-[#1c1a33] hover:bg-[#d1d5f0]"
-            }
-            ${idx === 0 ? "rounded-l-md" : ""}
-            ${idx === 2 ? "rounded-r-md" : ""}
-          `}
+              ${
+                algorithm === alg
+                  ? "bg-[#6b3fa0] text-white"
+                  : "bg-[#e0e6f5] text-[#1c1a33] hover:bg-[#d1d5f0]"
+              }
+              ${idx === 0 ? "rounded-l-md" : ""}
+              ${idx === 2 ? "rounded-r-md" : ""}
+            `}
             >
               {alg.toUpperCase()}
             </button>
@@ -140,7 +144,6 @@ export default function SearchForm({ onSubmit, loading }: Props) {
         </div>
       </div>
 
-      {/* Recipe Mode + Max Recipes */}
       <div className="flex flex-col gap-4 mb-4">
         <div className="flex justify-between">
           <label className="text-[#f5c542] w-1/2">Recipe Mode:</label>
@@ -150,7 +153,6 @@ export default function SearchForm({ onSubmit, loading }: Props) {
         </div>
 
         <div className="flex items-center">
-          {/* Multiple Toggle */}
           <div className="w-1/2 px-0 py-2">
             <ToggleSwitch
               label="Multiple:"
@@ -159,7 +161,6 @@ export default function SearchForm({ onSubmit, loading }: Props) {
             />
           </div>
 
-          {/* Max Recipes Input */}
           <div className="w-1/4">
             {multiple && (
               <input
@@ -175,16 +176,6 @@ export default function SearchForm({ onSubmit, loading }: Props) {
         </div>
       </div>
 
-      {/* Live Update Toggle */}
-      {/* <div>
-        <ToggleSwitch
-          label="Live Update:"
-          checked={liveUpdate}
-          onChange={() => setLiveUpdate(!liveUpdate)}
-        />
-      </div> */}
-
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={loading}
