@@ -13,7 +13,9 @@ interface Props {
     maxRecipe: number,
     liveUpdate: boolean
   ) => void;
+  loading: boolean;
 }
+
 
 type ElementOption = {
   value: string;
@@ -21,13 +23,14 @@ type ElementOption = {
   image: string;
 };
 
-export default function SearchForm({ onSubmit }: Props) {
+export default function SearchForm({ onSubmit, loading }: Props) {
   const [element, setElement] = useState<ElementOption | null>(null);
   const [elementOptions, setElementOptions] = useState<ElementOption[]>([]);
   const [algorithm, setAlgorithm] = useState("bfs");
   const [multiple, setmultiple] = useState(false);
   const [maxRecipe, setMaxRecipe] = useState(1);
   const [liveUpdate, setLiveUpdate] = useState(false);
+  
 
   useEffect(() => {
     fetch("/data/elements.json")
@@ -184,9 +187,17 @@ export default function SearchForm({ onSubmit }: Props) {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-[#6b3fa0] hover:bg-[#5c3491] text-white p-2 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:cursor-pointer"
+        disabled={loading}
+        className="w-full bg-[#6b3fa0] hover:bg-[#5c3491] text-white p-2 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:cursor-pointer disabled:opacity-50"
       >
-        Search
+        {loading ? (
+          <div className="flex justify-center items-center gap-2">
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            <span>Searching...</span>
+          </div>
+        ) : (
+          "Search"
+        )}
       </button>
     </form>
   );
