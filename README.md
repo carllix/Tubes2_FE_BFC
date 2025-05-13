@@ -18,7 +18,7 @@
 
 ## Description
 
-This project implements Breadth-First Search (BFS), Depth-First Search (DFS), and Bidirectional Search algorithms to assist players of Little Alchemy 2 in finding optimal combinations of base elements to create new elements. The application presents the results as a visually engaging, animated recipe tree to enhance understanding of each algorithm’s pathfinding process.
+This project implements Breadth-First Search (BFS) and Depth-First Search (DFS) algorithms to assist players of Little Alchemy 2 in finding optimal combinations of base elements to create new elements. The application presents the results as a visually engaging, animated recipe tree to enhance understanding of each algorithm’s pathfinding process.
 
 The system is built with a **Next.js (React)** frontend and a **Golang** backend, and is fully containerized with **Docker**.
 
@@ -32,8 +32,6 @@ Algoritma BFS pencarian pohon resep menggunakan metode rekursif. Metode rekursif
 
 ### Problem Solving Steps with DFS Algorithm
 Algoritma DFS dalam pencarian pohon resep juga menggunakan metode rekursif, namun pendekatannya berbeda dengan BFS. Metode rekursif pada DFS akan memanggil fungsi dirinya sendiri untuk mengeksplorasi jalur pencarian secara mendalam sebelum berpindah ke jalur lainnya. Pada setiap pemanggilan fungsi, sistem akan mengambil seluruh kombinasi elemen dari RecipeMap yang dapat membentuk elemen tersebut. Namun, sebelum kombinasi tersebut ditelusuri lebih lanjut, terlebih dahulu akan diperiksa apakah tier dari elemen yang akan ditelusuri lebih rendah dari tier parent-nya, untuk mencegah pencarian yang berputar. DFS akan menelusuri satu cabang pencarian hingga ke elemen paling dasar sebelum kembali (backtrack) dan melanjutkan ke kombinasi lain yang belum dieksplorasi. 
-
-### Problem Solving Steps with Bidirectional Algorithm
 
 ## Built With
 
