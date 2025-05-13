@@ -93,7 +93,7 @@ export default function AppPage() {
                     <>
                       <p>
                         ⏱️ Time:{" "}
-                        <span className="text-[#f5c542]">{info.time} µs</span>
+                        <span className="text-[#f5c542]">{info.time} μs</span>
                       </p>
                       <p>
                         🧩 Nodes visited:{" "}
